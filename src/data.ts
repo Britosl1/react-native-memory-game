@@ -8,132 +8,37 @@ import Card7 from '../src/images/7.png';
 import Card8 from '../src/images/8.png';
 import Card9 from '../src/images/9.png';
 import Card10 from '../src/images/10.png';
+import Back from '../src/images/back.png';
+
+import {ImageSourcePropType} from 'react-native';
 
 export type DataType = {
   id: string;
-  img: string;
+  img: ImageSourcePropType;
+  backImg: ImageSourcePropType;
   flipped: boolean;
   clickable: boolean;
+  matchingCardId: string;
 };
-export const data: DataType[] = [
-  {
-    id: '1',
-    img: Card1,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '2',
-    img: Card2,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '3',
-    img: Card3,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '4',
-    img: Card4,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '5',
-    img: Card5,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '6',
-    img: Card6,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '7',
-    img: Card7,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '8',
-    img: Card8,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '9',
-    img: Card9,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '10',
-    img: Card10,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '1',
-    img: Card1,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '2',
-    img: Card2,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '3',
-    img: Card3,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '4',
-    img: Card4,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '5',
-    img: Card5,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '6',
-    img: Card6,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '7',
-    img: Card7,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '8',
-    img: Card8,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '9',
-    img: Card9,
-    flipped: false,
-    clickable: true,
-  },
-  {
-    id: '10',
-    img: Card10,
-    flipped: false,
-    clickable: true,
-  },
+
+const cards: ImageSourcePropType[] = [
+  Card1,
+  Card2,
+  Card3,
+  Card4,
+  Card5,
+  Card6,
+  Card7,
+  Card8,
+  Card9,
+  Card10,
 ];
+export const data: DataType[] = [...cards, ...cards].map((card, i) => ({
+  id: `card${i}`,
+  flipped: false,
+  img: card,
+  backImg: Back,
+  clickable: true,
+  matchingCardId:
+    i < cards.length ? `card${i + cards.length}` : `card${i - cards.length}`,
+}));

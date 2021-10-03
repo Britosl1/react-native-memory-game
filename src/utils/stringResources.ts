@@ -6,4 +6,8 @@ export const StringResources = {
   WELCOME: 'Welcome to the game!',
   TYPE_YOUR_NAME: 'Type your name bellow:',
   TYPE_YOUR_NAME_TO_PLAY: 'Type your name to play!',
+  VICTORY: 'Victory!',
+  PLAY_AGAIN: 'Play Again!',
+  PLAYED_ROUNDS: 'Played Rounds:',
+  NUMBER_OF_ROUNDS: 'Number of rounds:',
 };

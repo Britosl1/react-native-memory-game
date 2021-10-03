@@ -10,6 +10,8 @@ import {shuffle} from '../../utils/gameFunctions';
 import {useEffect} from 'react';
 import {StringResources} from '../../utils/stringResources';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useCallback} from 'react';
+import VictoryModal from '../../components/Modal';
 
 interface IGameProps {
   navigation: NavigationStackProp<{userId: string}>;
@@ -48,89 +50,112 @@ const styles = StyleSheet.create({
 
 const Game: React.FC<IGameProps> = ({navigation, route}) => {
   const {name} = route.params;
-  const [gameWon, setGameWon] = useState<boolean>(false);
-  const [cards, setCards] = React.useState<DataType[]>(shuffle(data));
+  const [cards, setCards] = useState<DataType[]>(shuffle(data));
   const [matchedPairs, setMatchedPairs] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [cardId, setCardId] = useState<DataType>();
-  const [dataArray, setDataArray] = useState<DataType[]>(data);
-  const [dataState, setDataState] = useState<any>();
-  const [testButton, setTestButton] = useState<boolean>(true);
-  const [flip, setFlip] = useState<boolean>(false);
-  const [openedCard, setOpenedCard] = useState<any>([]);
-  const [matched, setMatched] = useState([]);
-
-  function flipCard(index: any) {
-    setOpenedCard((opened: any) => [...opened, index]);
-  }
+  const [modalVisible, setModalVisible] = useState(false);
+  const [clickedCard, setClickedCard] = React.useState<undefined | DataType>(
+    undefined,
+  );
 
   const numColumns = 4;
 
   const handleGame = () => {
-    console.log('Teste:', dataArray);
-    setDataState(shuffle(data));
-    setTestButton(!testButton);
+    // setDataState(shuffle(data));
+    // setTestButton(!testButton);
+    setCards(cards);
     setScore(0);
   };
 
-  const handleCards = () => {
+  const handleCards = (currentCard: DataType) => {
     setCards(prev =>
       prev.map(card =>
-        card.id === cardId?.id
+        card.id === currentCard.id
           ? {...card, flipped: true, clickable: false}
           : card,
       ),
     );
+
+    if (!clickedCard) {
+      setClickedCard({...currentCard});
+      setScore(score + 1);
+      return;
+    }
+
+    if (clickedCard.matchingCardId === currentCard.id) {
+      setMatchedPairs(prev => prev + 1);
+      setCards(prev =>
+        prev.map(card =>
+          card.id === clickedCard.id || card.id === currentCard.id
+            ? {...card, clickable: false}
+            : card,
+        ),
+      );
+      setClickedCard(undefined);
+      return;
+    }
+
+    setTimeout(() => {
+      setCards(prev =>
+        prev.map(card =>
+          card.id === clickedCard.id || card.id === currentCard.id
+            ? {...card, flipped: false, clickable: true}
+            : card,
+        ),
+      );
+    }, 1000);
+
+    setClickedCard(undefined);
   };
 
-  const storeData = async (value: string) => {
+  const storeData = useCallback(async () => {
     try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('ranking', jsonValue);
+      await AsyncStorage.multiSet([
+        ['name', name],
+        ['score', JSON.stringify(score)],
+      ]);
     } catch (e) {
       console.log('Error', e);
     }
-  };
+  }, [name, score]);
 
   useEffect(() => {
-    if (matchedPairs === dataArray.length / 2) {
-      console.log('Game Won!');
-      setGameWon(true);
+    if (matchedPairs === cards.length / 2) {
+      setModalVisible(true);
     }
-    return () => setDataState(shuffle(data));
-  }, [testButton, dataArray.length, matchedPairs]);
+    storeData();
+  }, [cards.length, matchedPairs, storeData]);
 
   return (
     <View>
       <View style={styles.topContainer}>
         <ArrowIcon onPress={() => navigation.navigate('Home')} />
-        <Text>{`${name} - Score: ${score}`}</Text>
+        <Text>{`${name} - ${StringResources.PLAYED_ROUNDS} ${score}`}</Text>
       </View>
       <View style={styles.container}>
         <FlatList
-          data={dataState}
+          data={cards}
           numColumns={numColumns}
           keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            return (
-              <ScrollView>
-                <Cards
-                  card={item}
-                  callback={handleCards}
-                  // flipped={cardId?.flipped}
-                  img={item.img}
-                />
-              </ScrollView>
-            );
-          }}
+          renderItem={({item}) => (
+            <ScrollView>
+              <Cards card={item} callback={handleCards} />
+            </ScrollView>
+          )}
         />
       </View>
       <View style={styles.bottonContainer}>
         <Text style={styles.textContainer}>
           {StringResources.CLICK_TO_START}
         </Text>
-        <ResetGameButton onPress={handleGame} />
+        <ResetGameButton onPress={() => setModalVisible(true)} />
       </View>
+      <VictoryModal
+        visible={modalVisible}
+        onPressHome={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('Ranking')}
+        rounds={score}
+      />
     </View>
   );
 };

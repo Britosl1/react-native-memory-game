@@ -5,6 +5,7 @@ import RankingPositions from '../../components/RankingPositions';
 import {NavigationStackProp} from 'react-navigation-stack';
 import {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect} from 'react';
 
 interface IRankingProps {
   navigation: NavigationStackProp<{userId: string}>;
@@ -15,18 +16,22 @@ const styles = StyleSheet.create({
 });
 
 const Ranking: React.FC<IRankingProps> = ({navigation}) => {
-  const [ranking, setRanking] = useState([]);
+  const [ranking, setRanking] = useState<any>([]);
 
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('ranking');
       if (value !== null) {
-        // value previously stored
+        setRanking({name: value, score: value});
       }
     } catch (e) {
-      // error reading value
+      console.log('Error:', e);
     }
   };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <View style={styles.container}>
@@ -34,8 +39,13 @@ const Ranking: React.FC<IRankingProps> = ({navigation}) => {
       <View>
         <FlatList
           data={ranking}
-          renderItem={({item}) => {
-            return <RankingPositions name={item} />;
+          renderItem={({item, index}) => {
+            return (
+              <RankingPositions
+                name={`${index}- ${item.name}`}
+                score={item.score}
+              />
+            );
           }}
         />
       </View>
