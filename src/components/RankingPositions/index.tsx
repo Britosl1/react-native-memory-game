@@ -1,34 +1,17 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {RankingContainer, TextRankingContainer} from './styles';
 
 interface IRankingPositionsProps {
-  name: string;
-  score: number;
+  name: Promise<string> | string;
+  score: Promise<string> | string;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 3,
-    height: 30,
-    backgroundColor: '#3c1361',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-  },
-  text: {
-    color: 'white',
-    fontWeight: '900',
-    fontSize: 14,
-  },
-});
 
 const RankingPositions: React.FC<IRankingPositionsProps> = ({name, score}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{`Name: ${name}`}</Text>
-      <Text style={styles.text}>{`Score: ${score}`}</Text>
-    </View>
+    <RankingContainer>
+      <TextRankingContainer>{`Name: ${name}`}</TextRankingContainer>
+      <TextRankingContainer>{`Score: ${score}`}</TextRankingContainer>
+    </RankingContainer>
   );
 };
 

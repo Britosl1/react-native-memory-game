@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, FlatList, StyleSheet, ScrollView, Text} from 'react-native';
+import {View, FlatList, ScrollView, Text} from 'react-native';
 import {data, DataType} from '../../data';
 import Cards from '../../components/Cards';
 import ArrowIcon from '../../components/Icons';
@@ -12,53 +12,29 @@ import {StringResources} from '../../utils/stringResources';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useCallback} from 'react';
 import VictoryModal from '../../components/Modal';
+import {
+  GameBottomContainer,
+  GameContainer,
+  GameTextContainer,
+  GameTopContainer,
+} from './styles';
 
 interface IGameProps {
   navigation: NavigationStackProp<{userId: string}>;
   route: RouteProp<{params: {name: string}}, 'params'>;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexWrap: 'wrap',
-    backgroundColor: '#bca0dc',
-    alignItems: 'center',
-    alignContent: 'center',
-    paddingVertical: 50,
-  },
-  topContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#7c5295',
-    color: 'white',
-    paddingHorizontal: 20,
-  },
-  bottonContainer: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#3c1361',
-  },
-  textContainer: {
-    flex: 1,
-    fontSize: 20,
-    color: 'white',
-    fontWeight: '500',
-    textAlign: 'left',
-  },
-});
-
 const Game: React.FC<IGameProps> = ({navigation, route}) => {
   const {name} = route.params;
+  const numColumns = 4;
+
   const [cards, setCards] = useState<DataType[]>(shuffle(data));
   const [matchedPairs, setMatchedPairs] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const [clickedCard, setClickedCard] = React.useState<undefined | DataType>(
+  const [clickedCard, setClickedCard] = useState<undefined | DataType>(
     undefined,
   );
-
-  const numColumns = 4;
 
   const handleGame = () => {
     // setDataState(shuffle(data));
@@ -110,29 +86,29 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
 
   const storeData = useCallback(async () => {
     try {
-      await AsyncStorage.multiSet([
-        ['name', name],
-        ['score', JSON.stringify(score)],
-      ]);
+      const playerName = ['name', name];
+      const playerScore = ['score', JSON.stringify(score)];
+      await AsyncStorage.multiSet([playerName, playerScore]);
     } catch (e) {
       console.log('Error', e);
     }
   }, [name, score]);
 
   useEffect(() => {
-    if (matchedPairs === cards.length / 2) {
+    if (matchedPairs === cards.length / 20) {
       setModalVisible(true);
+      storeData();
     }
     storeData();
   }, [cards.length, matchedPairs, storeData]);
 
   return (
     <View>
-      <View style={styles.topContainer}>
+      <GameTopContainer>
         <ArrowIcon onPress={() => navigation.navigate('Home')} />
         <Text>{`${name} - ${StringResources.PLAYED_ROUNDS} ${score}`}</Text>
-      </View>
-      <View style={styles.container}>
+      </GameTopContainer>
+      <GameContainer>
         <FlatList
           data={cards}
           numColumns={numColumns}
@@ -143,13 +119,11 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
             </ScrollView>
           )}
         />
-      </View>
-      <View style={styles.bottonContainer}>
-        <Text style={styles.textContainer}>
-          {StringResources.CLICK_TO_START}
-        </Text>
+      </GameContainer>
+      <GameBottomContainer>
+        <GameTextContainer>{StringResources.CLICK_TO_START}</GameTextContainer>
         <ResetGameButton onPress={() => setModalVisible(true)} />
-      </View>
+      </GameBottomContainer>
       <VictoryModal
         visible={modalVisible}
         onPressHome={() => navigation.navigate('Home')}
