@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Modal component 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  visible={true}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#b491c8",
+          "height": "100%",
+          "justifyContent": "center",
+          "paddingBottom": 50,
+          "paddingLeft": 50,
+          "paddingRight": 50,
+          "paddingTop": 50,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "marginBottom": 20,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "color": "white",
+              "fontSize": 20,
+              "fontWeight": "800",
+            },
+          ]
+        }
+      >
+        Victory!
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "color": "white",
+              "fontSize": 20,
+              "fontWeight": "800",
+            },
+          ]
+        }
+      >
+        Number of rounds: 2
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      nativeID="animatedComponent"
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#663a82",
+              "borderRadius": 6,
+              "height": 50,
+              "justifyContent": "center",
+              "marginBottom": 50,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "white",
+                "fontWeight": "800",
+              },
+            ]
+          }
+        >
+          Play Again!
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      nativeID="animatedComponent"
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#663a82",
+              "borderRadius": 6,
+              "height": 50,
+              "justifyContent": "center",
+              "marginBottom": 50,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "white",
+                "fontWeight": "800",
+              },
+            ]
+          }
+        >
+          Ranking
+        </Text>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

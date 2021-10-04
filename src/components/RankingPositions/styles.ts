@@ -9,6 +9,7 @@ export const RankingContainer = styled.View`
   padding-left: 20px;
   padding-right: 20px;
   flex-direction: row;
+  margin-bottom: 10px;
 `;
 
 export const TextRankingContainer = styled.Text`

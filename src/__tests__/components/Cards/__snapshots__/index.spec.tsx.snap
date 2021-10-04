@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Card component 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  nativeID="animatedComponent"
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+>
+  <Image
+    flipped={false}
+    source={
+      Object {
+        "testUri": "../../../src/images/1.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 5,
+          "height": 60,
+          "justifyContent": "center",
+          "marginBottom": 5,
+          "marginLeft": 5,
+          "marginRight": 5,
+          "marginTop": 5,
+          "transform": Array [
+            Object {
+              "rotateY": "180deg",
+            },
+          ],
+          "width": 60,
+          "zIndex": 1,
+        },
+      ]
+    }
+  />
+  <Image
+    flipped={false}
+    source={
+      Object {
+        "testUri": "../../../src/images/1.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 5,
+          "height": 60,
+          "justifyContent": "center",
+          "left": 0,
+          "marginBottom": 5,
+          "marginLeft": 5,
+          "marginRight": 5,
+          "marginTop": 5,
+          "position": "absolute",
+          "top": 0,
+          "transform": Array [
+            Object {
+              "rotate": "360deg",
+            },
+          ],
+          "width": 60,
+          "zIndex": 2,
+        },
+      ]
+    }
+  />
+</View>
+`;

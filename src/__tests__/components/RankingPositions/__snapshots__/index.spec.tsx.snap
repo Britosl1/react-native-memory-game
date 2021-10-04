@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Ranking component 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3c1361",
+        "borderRadius": 3,
+        "flexDirection": "row",
+        "height": 30,
+        "justifyContent": "space-between",
+        "marginBottom": 10,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "white",
+          "fontSize": 14,
+          "fontWeight": "900",
+        },
+      ]
+    }
+  >
+    Name: Lucas
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "white",
+          "fontSize": 14,
+          "fontWeight": "900",
+        },
+      ]
+    }
+  >
+    Score: 2
+  </Text>
+</View>
+`;

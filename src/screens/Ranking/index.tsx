@@ -21,7 +21,7 @@ const Ranking: React.FC<IRankingProps> = ({navigation}) => {
     name: Promise<string> | string;
     score: Promise<string> | string;
   };
-  const [ranking, setRanking] = useState<RankType[]>([]);
+  const [ranking, setRanking] = useState<RankType[]>();
 
   const getData = async () => {
     try {
@@ -47,7 +47,6 @@ const Ranking: React.FC<IRankingProps> = ({navigation}) => {
       </RankingListContainer>
       <FlatList
         data={ranking}
-        // keyExtractor={item => item.id}
         renderItem={({item}) => {
           return <RankingPositions score={item.score} name={item.name} />;
         }}
