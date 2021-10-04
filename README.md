@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a simple Memory Game made in React Native. It uses React Native, TypeScript, React Navigation, Asyncstorage and Jest for tests.
+This is a simple Memory Game made in React Native. It uses React Native, TypeScript, React Navigation, Styled Components, Asyncstorage and Jest for tests.
 
 ## Instalation
 
@@ -17,3 +17,11 @@ Then you need to install the dependencies
 ```
 npm install
 ```
+
+Then just run the project
+
+```
+react-native run-android
+```
+
+Not tested on iOS!
