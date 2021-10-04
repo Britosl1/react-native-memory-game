@@ -37,9 +37,7 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
   );
 
   const handleGame = () => {
-    // setDataState(shuffle(data));
-    // setTestButton(!testButton);
-    setCards(cards);
+    setCards(shuffle(data));
     setScore(0);
   };
 
@@ -88,6 +86,7 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
     try {
       const playerName = ['name', name];
       const playerScore = ['score', JSON.stringify(score)];
+
       await AsyncStorage.multiSet([playerName, playerScore]);
     } catch (e) {
       console.log('Error', e);
@@ -95,11 +94,10 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
   }, [name, score]);
 
   useEffect(() => {
-    if (matchedPairs === cards.length / 20) {
+    if (matchedPairs === cards.length / 2) {
       setModalVisible(true);
       storeData();
     }
-    storeData();
   }, [cards.length, matchedPairs, storeData]);
 
   return (
@@ -122,7 +120,7 @@ const Game: React.FC<IGameProps> = ({navigation, route}) => {
       </GameContainer>
       <GameBottomContainer>
         <GameTextContainer>{StringResources.CLICK_TO_START}</GameTextContainer>
-        <ResetGameButton onPress={() => setModalVisible(true)} />
+        <ResetGameButton onPress={() => handleGame()} />
       </GameBottomContainer>
       <VictoryModal
         visible={modalVisible}

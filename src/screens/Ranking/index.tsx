@@ -10,6 +10,7 @@ import {
   RankingTextContainer,
   RankingListContainer,
 } from './styles';
+import {StringResources} from '../../utils/stringResources';
 
 interface IRankingProps {
   navigation: NavigationStackProp<{userId: string}>;
@@ -43,7 +44,7 @@ const Ranking: React.FC<IRankingProps> = ({navigation}) => {
     <RankingContainer>
       <ArrowIcon onPress={() => navigation.navigate('Home')} />
       <RankingListContainer>
-        <RankingTextContainer>We are the champions!</RankingTextContainer>
+        <RankingTextContainer>{StringResources.CHAMPION}</RankingTextContainer>
       </RankingListContainer>
       <FlatList
         data={ranking}
